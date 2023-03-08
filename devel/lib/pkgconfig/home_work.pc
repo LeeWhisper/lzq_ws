@@ -1,0 +1,8 @@
+prefix=/home/lzq/lzq_ws/devel
+
+Name: home_work
+Description: Description of home_work
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

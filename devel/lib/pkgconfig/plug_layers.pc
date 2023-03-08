@@ -1,0 +1,8 @@
+prefix=/home/lzq/lzq_ws/devel
+
+Name: plug_layers
+Description: Description of plug_layers
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,2 @@
+Car_Spraying:camera_calibration:camera_split:home_work:hunter_msgs:plug_layers:track_avoid
+-DCATKIN_DEVEL_PREFIX=/home/lzq/lzq_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lzq/lzq_ws/install -G Unix Makefiles

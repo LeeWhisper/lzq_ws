@@ -1,0 +1,60 @@
+# #******************************************************************************************************************
+# # Copyright (C): 本代码所有版权为qc所有，任何个人或者组织不得以任何方式复制、转载以挪作他用，否则将构成对qc的产权知识侵权。
+# # @file       : costmap_common_params.yaml
+# # @brief      : # 对该文件的解析
+# # @autor      : qc
+# # @emil:      : 1449737162@qq.com
+# # @version    : TrajectoryPlannerROS_1.0.0
+# # @date       : 2022/7/29     
+# #*****************************************************************************************************************
+
+# footprint: [[0.22, 0.2], [0.22, -0.2], [-0.22, -0.2], [-0.22, 0.2]] 
+# # robot_radius: 0.35
+# #recovery_behavior_enabled: true
+# transform_tolerance: 0.2
+# map_type: costmap                                 # 地图类型
+
+# always_send_full_costmap: true
+
+# obstacle_layer:
+#  enabled: true
+#  obstacle_range: 1.5                              # 用于障碍物探测，比如:值为 3.0，意味着检测到距离小于 3 米的障碍物时，就会引入代价地图
+#  raytrace_range: 3.0                              # 用于清除障碍物，比如:值为 3.5，意味着清除代价地图中 3.5 米以外的障碍物
+#  inflation_radius: 0.2
+#  track_unknown_space: false
+#  combination_method: 1
+#  max_obstacle_height: 0.60                        # 障碍物最大高度
+#  min_obstacle_height: 0.00                        # 障碍物最小高度
+#  observation_sources: laser_scan_sensor                        # 设置导航中所使用的传感器，这里可以用逗号形式来区分开很多个传感器，
+#  laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+#  inf_is_valid: True
+
+# inflation_layer:
+#   enabled:              true
+#   cost_scaling_factor:  10.0                      # 是膨胀的比例系数，默认配置为10.0, 越大表明指数曲线下降越快
+#   inflation_radius:     0.4                       # 与规划路径产生代价的障碍物的距离.
+
+# static_layer:
+#   enabled:              true
+#   map_topic:            "/map"
+
+# robot_radius: 0.12 #圆形
+footprint: [[0.22, 0.2], [0.22, -0.2], [-0.22, -0.2], [-0.22, 0.2]] 
+
+obstacle_range: 1.5 # 用于障碍物探测，比如: 值为 3.0，意味着检测到距离小于 3 米的障碍物时，就会引入代价地图
+raytrace_range: 1.5 # 用于清除障碍物，比如：值为 3.5，意味着清除代价地图中 3.5 米以外的障碍物
+
+
+#膨胀半径，扩展在碰撞区域以外的代价区域，使得机器人规划路径避开障碍物
+inflation_radius: 0.4
+#代价比例系数，越大则代价值越小
+cost_scaling_factor: 10.0
+
+#地图类型
+map_type: costmap
+# track_unknown_space: true
+
+#导航包所需要的传感器
+observation_sources:  scan
+#对传感器的坐标系和数据进行配置。这个也会用于代价地图添加和清除障碍物。例如，你可以用激光雷达传感器用于在代价地图添加障碍物，再添加kinect用于导航和清除障碍物。
+scan: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}

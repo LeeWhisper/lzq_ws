@@ -1,0 +1,85 @@
+# #******************************************************************************************************************
+# # Copyright (C): 本代码所有版权为qc所有，任何个人或者组织不得以任何方式复制、转载以挪作他用，否则将构成对qc的产权知识侵权。
+# # @file       : base_local_planner_params.yaml
+# # @brief      : # 对该文件的解析
+# # @autor      : qc
+# # @emil:      : 1449737162@qq.com
+# # @version    : base_local_planner_params_1.0.0
+# # @date       : 2022/7/29     
+# #*****************************************************************************************************************
+
+# recovery_behavior_enabled: true
+# clearing_rotation_allowed: true
+ 
+# # Robot Configuration Parameters
+# TrajectoryPlannerROS:
+#    max_vel_x: 0.3                           # The maximum forward velocity allowed for the base in meters/sec(default: 0.5)          
+#    min_vel_x: 0.05                           # The minimum forward velocity allowed for the base in meters/sec(default: 2.5)
+#    max_vel_y: 0.0  
+#    min_vel_y: 0.0
+#    max_vel_theta: 0.2                          # The maximum rotational velocity allowed for the base in radians/sec(default: 1.0)
+#    min_vel_theta: -0.2                       # The minimum rotational velocity allowed for the base in radians/sec(default: -1.0)
+#    min_in_place_vel_theta: 0.1               # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec(default: 0.4)
+#    escape_vel: -0.05                          # Speed used for driving during escapes in meters/sec(default: -0.1)
+#    acc_lim_x: 0.2                            # The x acceleration limit of the robot in S/sec^2(default: 2.5)
+#    acc_lim_y: 0.0                            # The y acceleration limit of the robot in meters/sec^2(default: 2.5)
+#    acc_lim_theta: 0.2                        # The rotational acceleration limit of the robot in radians/sec^2(default: 3.2)
+#    holonomic_robot: false                     # Determines whether velocity commands are generated for a holonomic or non-holonomic robot(default: true)
+
+# # Goal Tolerance Parameters
+#    yaw_goal_tolerance: 0.2                  # The tolerance in radians for the controller in yaw/rotation when achieving its goal
+#    xy_goal_tolerance: 0.12                   # The tolerance in meters for the controller in the x & y distance when achieving a goal
+#    latch_xy_goal_tolerance: false            # (default: false)
+#    pdist_scale: 0.8 #控制器距离给定的路径有多近的加权值
+#    gdist_scale: 0.4 #控制器试图达到局部目标，或者是控制速度的加权值
+# # Forward Simulation Parameters
+#    sim_time: 1.7                               # The amount of time to forward-simulate trajectories in seconds(default: 1.0)
+#    sim_granularity: 0.025                    # The step size, in meters, to take between points on a given trajectory
+#    angular_sim_granularity: 0.025            # The step size, in radians, to take between angular samples on a given trajectory
+#    vx_samples: 20                             # The number of samples to use when exploring the x velocity space(default: 3)
+#    vy_samples: 0  
+#    vtheta_samples: 20                        # The number of samples to use when exploring the theta velocity space
+#    controller_frequency: 20.0                # The frequency at which this controller will be called in Hz(default: 20.0)
+#    simple_attractor: false
+#    # dwa: true  #是否用DWA模式
+controller_frequency: 3.0
+recovery_behavior_enabled: True
+clearing_rotation_allowed: True
+ 
+TrajectoryPlannerROS:
+   max_vel_x: 0.3
+   min_vel_x: 0.05
+   max_vel_y: 0.0  # zero for a differential drive robot
+   min_vel_y: 0.0
+   max_vel_theta: 0.4
+   min_vel_theta: -0.4
+   min_in_place_vel_theta: 0.2 #N
+   escape_vel: 0.0
+   acc_lim_x: 0.3 #1.5
+   acc_lim_y: 0.0  # zero for a differential drive robot
+   acc_lim_theta: 0.3 #0.3
+ 
+   holonomic_robot: false
+   yaw_goal_tolerance: 0.15 #0.1 # about 6 degrees0
+   xy_goal_tolerance: 0.12  # 5 cm
+   latch_xy_goal_tolerance: false
+   pdist_scale: 0.8 #0.4
+   gdist_scale: 0.2 #0.8
+   meter_scoring: true
+ 
+   heading_lookahead: 0.325
+   heading_scoring: false
+   heading_scoring_timestep: 0.8
+   occdist_scale: 0.05
+   oscillation_reset_dist: 0.05
+   publish_cost_grid_pc: false
+   prune_plan: true
+ 
+   sim_time: 5 #1.0
+   sim_granularity: 0.025
+   angular_sim_granularity: 0.025
+   vx_samples: 8
+   vy_samples: 0  # zero for a differential drive robot
+   vtheta_samples: 20
+   dwa: true
+   simple_attractor: false

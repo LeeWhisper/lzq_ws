@@ -1,0 +1,32 @@
+# #******************************************************************************************************************
+# # Copyright (C): 本代码所有版权为qc所有，任何个人或者组织不得以任何方式复制、转载以挪作他用，否则将构成对qc的产权知识侵权。
+# # @file       : global_costmap_params.yaml
+# # @brief      : # 对该文件的解析
+# # @autor      : qc
+# # @emil:      : 1449737162@qq.com
+# # @version    : global_costmap_params_1.0.0
+# # @date       : 2022/7/29     
+# #*****************************************************************************************************************
+# global_costmap:
+#   global_frame: map                                                           # 地图坐标系
+#   robot_base_frame: base_link                                                 # 机器人坐标系
+#   update_frequency: 1.0                                                       # 代价地图更新频率
+#   publish_frequency: 0.5                                                      # 代价地图的发布频率
+#   static_map: true                                                            # 是否使用一个地图或者地图服务器来初始化全局代价地图，如果不使用静态地图，这个参数为false.
+ 
+#   transform_tolerance: 0.5                                                    # 等待坐标变换发布信息的超时时间
+#   plugins:
+#     - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+#     - {name: obstacle_layer,          type: "costmap_2d::VoxelLayer"}
+#     - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+global_costmap:
+  global_frame: map #地图坐标系
+  robot_base_frame: base_link #机器人坐标系
+  # 以此实现坐标变换
+  use_dijkstra: false
+  update_frequency: 1.0 #代价地图更新频率
+  publish_frequency: 1.0 #代价地图的发布频率
+  transform_tolerance: 0.5 #等待坐标变换发布信息的超时时间
+  # allow_unknown: false
+  static_map: true # 是否使用一个地图或者地图服务器来初始化全局代价地图，如果不使用静态地图，这个参数为false.
+  # track_unknown_space: true

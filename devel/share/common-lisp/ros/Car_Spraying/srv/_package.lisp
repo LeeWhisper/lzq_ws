@@ -1,0 +1,10 @@
+(cl:defpackage Car_Spraying-srv
+  (:use )
+  (:export
+   "QUERYSERVOANGLE"
+   "<QUERYSERVOANGLE-REQUEST>"
+   "QUERYSERVOANGLE-REQUEST"
+   "<QUERYSERVOANGLE-RESPONSE>"
+   "QUERYSERVOANGLE-RESPONSE"
+  ))
+

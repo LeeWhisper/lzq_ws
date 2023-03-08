@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="Car_Spraying" type="output_cloud" name="output_cloud"/>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find Car_Spraying)/config/output_cloud.rviz"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_camera" args="0.0 0.0 0.0 0.0 0.0 0.0 /map /camera_link" /> 
+    
+</launch>

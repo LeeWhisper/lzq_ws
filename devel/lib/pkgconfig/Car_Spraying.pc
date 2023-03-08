@@ -1,0 +1,8 @@
+prefix=/home/lzq/lzq_ws/devel
+
+Name: Car_Spraying
+Description: Description of Car_Spraying
+Version: 0.0.0
+Cflags: -I/home/lzq/lzq_ws/devel/include
+Libs: -L${prefix}/lib -lCar_Spraying
+Requires: image_transport roscpp rospy cv_bridge message_runtime std_msgs message_filters

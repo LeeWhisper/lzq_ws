@@ -1,0 +1,13 @@
+<launch>
+  <!-- 启动rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find track_avoid)/config/show_pointcloud.rviz"/>
+   <!-- 启动点云 -->
+  <include file="$(find track_avoid)/launch/rs_camera.launch"/>
+  <!-- 将点云投影到平面 -->
+  <node pkg="track_avoid" type="pointcloud2_pclmsg" name="pointcloud2_pclmsg" output="screen"/>
+  <include file="$(find plug_layers)/launch/move_base_plug.launch" />
+  
+  <include file="$(find track_avoid)/launch/projected_pcl_2_laser.launch" />
+
+
+</launch>

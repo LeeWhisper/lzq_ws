@@ -1,0 +1,9 @@
+<launch>
+    <!-- 导入USB摄像头启动节点 -->
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+    <!-- 启动yolo识别 -->
+    <node pkg="camera_split" type="stereo_matching_ros" name="stereo_matching_ros" output="screen"/>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_camera" args="0.0 0.0 0.0 0.0 0.0 0.0 /map /camera_link" /> 
+
+</launch>

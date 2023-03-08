@@ -1,0 +1,64 @@
+<launch>
+
+<!-- Starting rosaria driver for motors and encoders -->
+  <node pkg = "rosaria" type = "RosAria" name = "RosAria">
+		<param name="port" value="/dev/ttyUSB0" type="string"/>
+    <remap from="/RosAria/cmd_vel" to="cmd_vel"/>
+    <remap from="rosaria/pose" to="odom"/>
+  </node>
+<!-- <include file="$(find mrobot_navigation)/launch/gmapping_demo.launch"/> -->
+  <!-- 设置地图的配置文件 -->
+    <arg name="map" default="c-map22-3-2-1804.yaml" />
+
+    <!-- 运行地图服务器，并且加载设置的地图-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find track_avoid)/maps/$(arg map)"/>
+ <!--启动 amcl 定位包 -->
+
+ <include file="$(find track_avoid)/launch/amcl.launch"/>
+ <!-- 启动点云 -->
+ <include file="$(find track_avoid)/launch/rs_camera.launch"/>
+
+  <!-- 启动rviz -->
+  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mrobot_navigation)/rviz/gmapping.rviz"/> -->
+  <!-- 将点云投影到平面 -->
+  <node pkg="track_avoid" type="pointcloud2_pclmsg" name="pointcloud2_pclmsg" output="screen"/>
+  <include file="$(find plug_layers)/launch/move_base_plug.launch" />
+  <!-- 将投影过的点云转换为单线激光数据 -->
+  <include file="$(find track_avoid)/launch/projected_pcl_2_laser.launch" />
+
+	<!-- <include file="$(find mrobot_navigation)/launch/fake_nav_demo.launch" /> -->
+
+	 <!-- <node pkg="instance" type="actionlib_test"  name="actionlib_test" output="screen"/> -->
+	 <!-- <node pkg="instance" type="call_for_arrive"  name="call_for_arrive" output="screen"/> -->
+<!--node pkg="rviz" type="rviz" name="rviz" /-->
+<!--node pkg="rosaria_client" type="rosaria_client" name="rosaria_client_launcher.launch" /-->
+<!--include file="$(find rosaria_client)/launch/Rosaria_client_launcher.launch" /-->
+<!--node pkg="rosaria_client" type="interface" name="RosAria_interface" output="screen"/-->
+<!-- Starting laser rosrun sicktoolbox_wrapper sicklms -->
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+    <param name="serial_port"         type="string" value="/dev/ttyUSB1"/>
+    <param name="serial_baudrate"     type="int"    value="256000"/><!--A1/A2 -->
+    <!--param name="serial_baudrate"     type="int"    value="256000"--><!--A3 -->
+    <param name="frame_id"            type="string" value="laser"/>
+    <param name="inverted"            type="bool"   value="false"/>
+    <param name="angle_compensate"    type="bool"   value="true"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
+    args="0.2245 0.0 0.2 0.0 0.0  0.0 /base_link /laser 40" /> 
+  
+<!-- Starting laser tf -->
+ <node name="RosAriaLaserTf" pkg="p3dx_navigation" type="RosAriaLaserTf.py" /> 
+ 
+<!-- <node name="static_tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_link /laser 100" />-->
+<arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find mrobot_description)/urdf/mrobot_with_rplidar.urdf.xacro'" />
+    <param name="robot_description" command="$(arg urdf_file)" />
+
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />  
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
+
+        <param name="publish_frequency" type="double" value="5.0" />
+    </node>
+<node name="footprint2base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 1 /base_link /base_footprint 50"/>
+ <node name="base_link2map" pkg="tf" type="static_transform_publisher" args="0 0.15 0.7 0 0 0 1 /base_link /camera_link  100"/> 
+</launch>

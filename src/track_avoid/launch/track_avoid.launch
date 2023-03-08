@@ -1,0 +1,7 @@
+<launch>
+
+    <node pkg = "track_avoid" type = "track_01" name = "track_01" output = "screen" />
+    <node pkg = "track_avoid" type = "move_01" name = "move_01" output = "screen" />
+    <node pkg = "track_avoid" type = "avoid_01" name = "avoid_01" output = "screen" />
+
+</launch>
